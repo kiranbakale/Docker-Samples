@@ -9,18 +9,18 @@ pipeline {
                 sh 'ls -ltr'
             }
        }
-       stage('Git') {
- 
-            steps {
- 
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'git-creds', url: 'https://github.com/kiranbakale/Docker-Samples.git']]])                   }
- 
+       stage('Clone Repository'){
+            steps{
+                git branch: 'main',
+                    url: 'https://github.com/kiranbakale/Docker-Samples.git'
+            }
         }
 
         
         stage('Install dependencies') {
             steps {
                 cd nodejs
+                sh 'cd nodejs'
                 sh 'npm init -y'
                 sh 'npm i express'
             }
